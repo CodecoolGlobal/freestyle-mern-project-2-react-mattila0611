@@ -1,0 +1,26 @@
+.loading {
+    background-color: black;
+    height: 100vh;
+    width: 100vw;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+}
+
+.loading img {
+    height: 30%;
+    animation: spinLogo 3s infinite;
+}
+
+.loading p {
+    color: white;
+    font-size: 60pt;
+    font-weight: bolder;
+    margin: 40px 0;
+}
+
+@keyframes spinLogo {
+    0% {rotate: 0deg}
+    100% {rotate: 360deg}
+}

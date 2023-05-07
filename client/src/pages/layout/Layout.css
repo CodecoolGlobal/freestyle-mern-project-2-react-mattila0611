@@ -1,0 +1,48 @@
+.header{
+    display: grid;
+    grid-template-columns: 1fr 1fr 1fr;
+    justify-content: center;
+    position:relative;
+    top: 0px;
+    height: 7.5vh;
+    background: rgb(0,140,255);
+    background: linear-gradient(90deg, rgb(175, 198, 255) 0%, rgba(9,9,121,1) 50%, rgb(175, 198, 255))};
+
+.header > div {
+    height: 7.5vh;
+}
+
+.logo {
+    display: flex;
+    justify-content: center;
+}
+
+.logo img {
+    position: relative;
+    height: 15vh;
+}
+
+.userProfile {
+    display: flex;
+    justify-content: right;
+    align-items: center;
+    height: 7.5vh;
+    margin: 0 2vw 0 0;
+}
+
+.userProfile button {
+    margin-left: 10px;
+    width: 20%;
+}
+
+.score {
+    display: flex;
+    justify-content: left;
+    align-items: center;
+    height: 7.5vh;
+    margin: 0 0 0 2vw;
+}
+
+p {
+    display: block;
+}

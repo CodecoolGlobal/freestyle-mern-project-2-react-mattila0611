@@ -48,7 +48,7 @@ function Profile() {
                         <label>Confirm new password:
                             <input type="password" onChange={e => setChangeConfirmPassword(e.target.value)} />
                         </label>
-                        <button onClick={submit}>Submit changes</button>
+                        <button className="btn" onClick={submit}>Submit changes</button>
                     </div>
                     <p>Your details</p>
                     <div className="userDetails">
@@ -61,7 +61,7 @@ function Profile() {
                         <button>Review played games</button>
                     </Link> */}
                     <Link to="/">
-                        <button>Back to menu</button>
+                        <button className="btn">Back to menu</button>
                     </Link>
                 </div>
             </div>

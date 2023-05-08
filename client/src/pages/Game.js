@@ -7,17 +7,19 @@ import vagoAll from "../images/vago_all.png";
 import bubble from "../images/bubble_left.png";
 import vagoSmile from "../images/vago_smile.png";
 
-const questionQuantity = 5;
-
 function Game() {
-    const [loading, setLoading] = useState(true);
     const [questions, setQuestions] = useState(null);
     const [round, setRound] = useState(0);
     const [correctAnswers, setCorrectAnswers] = useState(0);
     const [incorrectAnswers, setIncorrectAnswers] = useState(0);
 
+    const [showOptions, setShowOptions] = useState(true);
+    const [questionNumber, setQuestionNumber] = useState(5);
+    const [category, setCategory] = useState("9");
+    const [difficulty, setDiffculty] = useState(null);
+
     const fetchQuestions = async () => {
-        const res = await fetch(`https://opentdb.com/api.php?amount=${questionQuantity}&difficulty=easy&type=multiple`);
+        const res = await fetch(`https://opentdb.com/api.php?amount=${questionNumber}&difficulty=${difficulty}&category=${category}&type=multiple`);
         const data = await res.json();
         console.log(data.results);
         setQuestions(data.results);
@@ -37,17 +39,7 @@ function Game() {
     }
 
     useEffect(() => {
-            fetchQuestions();
-    }, [])
-
-    useEffect(() => {
-        if(questions){
-            setLoading(false);
-        } else setLoading(true);
-    }, [questions])
-
-    useEffect(() => {
-        if (round === questionQuantity) {
+        if (round === questionNumber) {
             const postGame = async () => {
                 await fetch(`http://127.0.0.1:3001/api/user/${getUser().username}/addgame`, {
                     method: "POST",
@@ -56,7 +48,7 @@ function Game() {
                     },
                     body: JSON.stringify({
                         score: correctAnswers,
-                        questions: questionQuantity
+                        questions: questionNumber
                     })
                 });
                 refreshUser(getUser().username, getUser().password);
@@ -65,12 +57,61 @@ function Game() {
         }
     }, [round])
 
-    if(loading){
-        return (<Loading/>)
-    }
+    if (showOptions) {
+        return (
+            <>
+                <div className="menubg"></div>
+                <div className="container">
+                    <div className="gameOptions">
+                        <p className="title">Game options</p>
+                        <div className="sub">
+                            <p>Number of questions:</p>
+                            <div className="numberOption">
+                                <button onClick={() => questionNumber > 5 && setQuestionNumber((prev) => prev - 5)}>-</button>
+                                <p>{questionNumber}</p>
+                                <button onClick={() => questionNumber < 20 && setQuestionNumber((prev) => prev + 5)}>+</button>
+                            </div>
+                        </div>
+                        <div className="sub">
+                            <p>Difficulty:</p>
+                            <div>
+                                <div className="radio">
+                                    <input type="radio" id="easy" name="difficulty" value={"easy"} onChange={(e) => setDiffculty(e.target.value)} />
+                                    <label htmlFor="easy">Easy</label>
+                                </div>
+                                <div className="radio">
+                                    <input type="radio" id="medium" name="difficulty" value={"medium"} onChange={(e) => setDiffculty(e.target.value)} />
+                                    <label htmlFor="medium">Medium</label>
+                                </div>
+                                <div className="radio">
+                                    <input type="radio" id="hard" name="difficulty" value={"hard"} onChange={(e) => setDiffculty(e.target.value)} />
+                                    <label htmlFor="hard">Hard</label>
+                                </div>
+                            </div>
+                        </div>
+                        <div className="sub">
+                            <p>Category:</p>
+                            <select onChange={(e) => setCategory(e.target.value)}>
+                                <option value={9}>General knowledge</option>
+                                <option value={11}>Movies</option>
+                                <option value={15}>Video games</option>
+                                <option value={18}>Computer science</option>
+                                <option value={21}>Sports</option>
+                                <option value={23}>History</option>
+                                <option value={27}>Animals</option>
+                            </select>
+                        </div>
+                        <button className="btn" onClick={() => { if (difficulty) { setShowOptions(false); fetchQuestions() } }}>Start game</button>
+                    </div>
+                </div>
+            </>
+        )
+    } else {
+        if (!questions) {
+            return <Loading />
+        }
 
-    if (questions) {
-        if (round < questionQuantity) {
+        if (round < questionNumber) {
             return (
                 <>
                     <img className="vagoAll" src={vagoAll} alt="" />
@@ -80,7 +121,7 @@ function Game() {
                         <div className="gameStats">
                             <p>Correct answers: {correctAnswers}</p>
                             <p>Incorrect answers: {incorrectAnswers}</p>
-                            <p>Remaining questions: {questionQuantity - round}</p>
+                            <p>Remaining questions: {questionNumber - round}</p>
                         </div>
                         <Question question={questions[round]} handleAnswer={handleAnswer} />
                     </div>

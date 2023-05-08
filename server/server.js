@@ -5,7 +5,7 @@ const User = require("./model/User");
 
 const app = express();
 
-mongoose.connect("mongodb+srv://butyok:butyok@cluster0.sp2t3v5.mongodb.net/quiz");
+mongoose.connect("mongodb+srv://butyok:butyok@cluster0.sp2t3v5.mongodb.net/quiz2");
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

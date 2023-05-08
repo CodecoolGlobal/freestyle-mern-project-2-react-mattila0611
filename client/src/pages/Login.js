@@ -44,7 +44,7 @@ function Login() {
     return (
         <>
             <div className="menubg"></div>
-            <div className="loginContainer">
+            <div className="container">
                 <div className="login">
                     <img src={logo} alt=""></img>
                     <p>Please sign in!</p>
@@ -59,7 +59,7 @@ function Login() {
                                 <input type="password" onChange={(e) => setPassword(e.target.value)} />
                             </label>
                         </div>
-                        <button type="submit">Sign in</button>
+                        <button type="submit" className="btn">Sign in</button>
                         <Link to="/register">Don't have an account? Click here to register!</Link>
                     </form>
                 </div>

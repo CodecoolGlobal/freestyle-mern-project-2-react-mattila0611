@@ -2,10 +2,10 @@ import { getUser } from "../App";
 import vagoUr from "../images/vago.png";
 import bubble from "../images/bubble.png";
 import { useNavigate } from "react-router-dom";
+import { useEffect, useState } from "react";
 
 function Home() {
     const navigate = useNavigate();
-
 
     return (
         <>

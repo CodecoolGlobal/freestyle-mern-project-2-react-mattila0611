@@ -44,7 +44,7 @@ function Login() {
     return (
         <>
             <div className="menubg"></div>
-            <div className="loginContainer">
+            <div className="container">
                 <div className="login">
                     <img src={logo} alt=""></img>
                     <p>Please sign in!</p>

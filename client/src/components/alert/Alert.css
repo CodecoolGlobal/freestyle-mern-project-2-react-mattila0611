@@ -1,0 +1,26 @@
+.alert {
+    position: absolute;
+    left: 50%;
+    transform: translateX(-50%);
+    top: 10vh;
+    height: 2rem;
+    width: fit-content;
+    display: flex;
+    align-items: center;
+    background: rgba(255, 0, 0, 0.45);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(11.2px);
+    -webkit-backdrop-filter: blur(11.2px);
+    border: 1px solid rgba(255, 0, 0, 0.36);
+    padding: 5px 20px;
+}
+
+.alert img {
+    height: 2rem;
+    margin-right: 10px;
+}
+
+.alert p {
+    color: white;
+}

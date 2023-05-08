@@ -29,6 +29,7 @@ body {
     z-index: -1;
 }
 
+
 .loginContainer {
     height: 100vh;
     width: 100vw;
@@ -42,15 +43,24 @@ body {
     display: block;
 }
 
+.login p {
+    color: white;
+}
+
 .login {
-    background-color: rgb(175, 198, 255);
     width: 30rem;
     height: 30rem;
-    border-radius: 30px;
     padding: 30px 10px;
     display: flex;
     flex-direction: column;
     align-items: center;
+    /* From https://css.glass */
+    background: rgba(0, 147, 222, 0.52);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.4px);
+    -webkit-backdrop-filter: blur(8.4px);
+    border: 1px solid rgba(0, 147, 222, 0.25);
 }
 
 .login img {
@@ -83,9 +93,14 @@ body {
     padding: 10px 20px;
     margin-left: 10px;
     margin-right: 10px;
-    background-color: white;
-    border-radius: 10px;
-    box-shadow: 0 0 15px rgba(0, 0, 0, 0.468);
+    /* From https://css.glass */
+    background: rgba(255, 255, 255, 0.24);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(5px);
+    -webkit-backdrop-filter: blur(5px);
+    border: 1px solid rgba(255, 255, 255, 0.3);
+    box-shadow: 0 0 15px rgba(0, 0, 0, 0.7);
 }
 
 .userInput label {
@@ -95,7 +110,7 @@ body {
 .userInput label input {
     margin: 10px 0 0 0;
     width: 95%;
-    border-color: rgba(0, 0, 0, 0.497);
+    background-color:rgba(0, 0, 0, 0.1);
     border-radius: 5px;
     padding-left: 10px;
 }
@@ -383,8 +398,8 @@ table button {
     align-items: center;
 }
 
-.profile > p {
-    font-size:xx-large;
+.profile>p {
+    font-size: xx-large;
     font-weight: bolder;
     margin-bottom: 10px;
 }

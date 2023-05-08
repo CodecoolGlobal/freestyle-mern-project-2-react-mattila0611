@@ -49,7 +49,7 @@ function Leaderboard() {
                         </tbody>
                     </table>
                     <Link to="/">
-                        <button>Back to menu</button>
+                        <button className="btn">Back to menu</button>
                     </Link>
                 </div>
             </div>

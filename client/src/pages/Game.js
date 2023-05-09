@@ -1,7 +1,7 @@
 import Question from "../components/question/Question";
 import Loading from "../components/loading/Loading";
 import { useEffect, useState } from "react";
-import { getUser, refreshUser } from "../App";
+import { refreshUser } from "../App";
 import { Link } from "react-router-dom";
 import vagoAll from "../images/vago_all.png";
 import bubble from "../images/bubble_left.png";
@@ -43,7 +43,7 @@ function Game() {
     useEffect(() => {
         if (round === questionNumber) {
             const postGame = async () => {
-                await fetch(`http://127.0.0.1:3001/api/user/${getUser().username}/addgame`, {
+                await fetch(`http://127.0.0.1:3001/api/user/${JSON.parse(sessionStorage.getItem("user")).username}/addgame`, {
                     method: "POST",
                     headers: {
                         "Content-Type": "application/json"
@@ -53,7 +53,7 @@ function Game() {
                         questions: questionNumber
                     })
                 });
-                refreshUser(getUser().username, getUser().password);
+                refreshUser(JSON.parse(sessionStorage.getItem("user")).username, JSON.parse(sessionStorage.getItem("user")).password);
             }
             postGame();
         }

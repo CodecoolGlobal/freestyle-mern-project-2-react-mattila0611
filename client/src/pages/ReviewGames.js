@@ -1,5 +1,4 @@
 import { useEffect, useState } from "react";
-import { getUser } from "../App";
 import { Link } from "react-router-dom";
 
 function calculatePercentage(answeredQuestions) {
@@ -11,7 +10,7 @@ function calculatePercentage(answeredQuestions) {
 function ReviewGames() {
     const [spot, setSpot] = useState(null);
 
-    const user = getUser();
+    const user = JSON.parse(sessionStorage.getItem("user"));
 
     useEffect(() => {
         const fetchSpot = async () => {
@@ -46,7 +45,7 @@ function ReviewGames() {
                                     </tr>
                                 </thead>
                                 <tbody>
-                                    {getUser().playedGames.map((game, index) => (
+                                    {user.playedGames.map((game, index) => (
                                         <tr key={index}>
                                             <td>{index + 1}</td>
                                             <td>{game.questions}</td>

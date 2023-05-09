@@ -12,6 +12,11 @@
     height: 7.5vh;
 }
 
+.header p {
+    font-size: larger;
+    font-weight: bolder;
+}
+
 .logo {
     display: flex;
     justify-content: center;

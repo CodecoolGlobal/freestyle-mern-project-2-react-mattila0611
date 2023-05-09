@@ -25,36 +25,39 @@ function ReviewGames() {
     if (spot) {
         return (
             <>
-                <div className="reviewGames">
-                    <div className="stats">
-                        <p>Played games: {user.playedGames.length}</p>
-                        <p>All time points: {user.playedGames.reduce((total, obj) => total + obj.score, 0)}</p>
-                        <p>Well answered percentage: {calculatePercentage(user.playedGames)}%</p>
-                        <p>Leaderboard spot: {spot}.</p>
-                    </div>
-                    <div className="playedGames">
-                        <table>
-                            <thead>
-                                <tr>
-                                    <th></th>
-                                    <th>Number of questions</th>
-                                    <th>Right answers</th>
-                                    <th>Wrong answers</th>
-                                    <th>Played at</th>
-                                </tr>
-                            </thead>
-                            <tbody>
-                                {getUser().playedGames.map((game, index) => (
-                                    <tr key={index}>
-                                        <td>{index + 1}</td>
-                                        <td>{game.questions}</td>
-                                        <td>{game.score}</td>
-                                        <td>{game.questions - game.score}</td>
-                                        <td>{`${new Date(game.playedAt).getFullYear()} ${new Date(game.playedAt).getMonth()} ${new Date(game.playedAt).getDate()}`}</td>
+                <div className="menubg" />
+                <div className="reviewContainer">
+                    <div className="reviewGames">
+                        <div className="stats">
+                            <p>Played games: {user.playedGames.length}</p>
+                            <p>All time points: {user.playedGames.reduce((total, obj) => total + obj.score, 0)}</p>
+                            <p>Well answered percentage: {calculatePercentage(user.playedGames)}%</p>
+                            <p>Leaderboard spot: {spot}.</p>
+                        </div>
+                        <div className="playedGames">
+                            <table>
+                                <thead>
+                                    <tr>
+                                        <th></th>
+                                        <th>Number of questions</th>
+                                        <th>Right answers</th>
+                                        <th>Wrong answers</th>
+                                        <th>Played at</th>
                                     </tr>
-                                ))}
-                            </tbody>
-                        </table>
+                                </thead>
+                                <tbody>
+                                    {getUser().playedGames.map((game, index) => (
+                                        <tr key={index}>
+                                            <td>{index + 1}</td>
+                                            <td>{game.questions}</td>
+                                            <td>{game.score}</td>
+                                            <td>{game.questions - game.score}</td>
+                                            <td>{`${new Date(game.playedAt).getFullYear()} ${new Date(game.playedAt).getMonth()} ${new Date(game.playedAt).getDate()}`}</td>
+                                        </tr>
+                                    ))}
+                                </tbody>
+                            </table>
+                        </div>
                     </div>
                     <Link to="/profile">
                         <button className="btn">Back to profile</button>

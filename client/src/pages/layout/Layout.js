@@ -19,25 +19,23 @@ function Layout() {
         } else setLoading(false);
     }, [navigate])
 
-    if(getUser()){
-        if (!loading) {
-            return (
-                <>
-                    <div className="header">
-                        <div className="score">
-                            <p>Score: {sumScore(getUser())}</p>
-                        </div>
-                        <div className="logo"><img src={logo} alt="" /></div>
-                        <div className="userProfile">
-                            <p>Logged in as {getUser().username}</p>
-                            <button onClick={() => setUser(null)}>Log out</button>
-                        </div>
+    if (!loading) {
+        return (
+            <>
+                <div className="header">
+                    <div className="score">
+                        <p>Score: {sumScore(getUser())}</p>
                     </div>
-                    <Outlet />
-                </>
-            )
-        }
-    } else navigate("/login");
+                    <div className="logo"><img src={logo} alt="" /></div>
+                    <div className="userProfile">
+                        <p>Logged in as {getUser().username}</p>
+                        <button onClick={() => {navigate("/login"); setUser(null)}}>Log out</button>
+                    </div>
+                </div>
+                <Outlet />
+            </>
+        )
+    }
 }
 
 export default Layout;

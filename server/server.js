@@ -1,6 +1,7 @@
 require("dotenv").config();
 const express = require('express');
 const mongoose = require('mongoose');
+const bcrypt = require("bcrypt");
 
 const User = require("./model/User");
 
@@ -40,7 +41,7 @@ app.post("/api/register", async (req, res) => {
                 },
                 username: req.body.username,
                 email: req.body.email,
-                password: req.body.password,
+                password: bcrypt.hashSync(req.body.password, 10),
                 registeredAt: Date.now()
             })
             res.json("ok").status(201);
@@ -55,7 +56,7 @@ app.post("/api/login", async (req, res) => {
     const usernameFound = await User.findOne({ username: req.body.username });
 
     if (usernameFound) {
-        if (usernameFound.password === req.body.password) {
+        if (bcrypt.compareSync(req.body.password, usernameFound.password)) {
             res.json({success: true, user: usernameFound});
         } else {
             res.json("Incorrect password!");
@@ -121,6 +122,6 @@ app.patch("/user/:username", (req,res) => {
 })
 
 
-app.listen(3001, () => {
+app.listen(3001, async () => {
     console.log("Listening on port 3001");
 })

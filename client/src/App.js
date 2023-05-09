@@ -9,7 +9,6 @@ import Game from "./pages/Game";
 import Profile from './pages/Profile';
 import ReviewGames from './pages/ReviewGames';
 import Leaderboard from './pages/Leaderboard';
-import Loading from "./components/loading/Loading";
 
 import { createBrowserRouter, RouterProvider } from "react-router-dom";
 
@@ -30,10 +29,10 @@ const router = createBrowserRouter([
                 path: "/profile",
                 element: <Profile />
             },
-            // {
-            //     path: "/profile/games",
-            //     element: <ReviewGames />
-            // },
+            {
+                path: "/profile/games",
+                element: <ReviewGames />
+            },
             {
                 path: "/leaderboard",
                 element: <Leaderboard />

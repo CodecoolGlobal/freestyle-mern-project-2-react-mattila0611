@@ -1,10 +1,11 @@
 import "./Alert.css";
-import alert from "../../images/alert.png";
+import error from "../../images/error.png";
+import success from "../../images/success.png";
 
-function Alert({ message }) {
+function Alert({ message, type }) {
     return (
-        <div className="alert">
-            <img src={alert} alt=""/>
+        <div className={type === "error" ? "alert error" : "alert success"}>
+            <img src={type === "error" ? error : success} alt=""/>
             <p>{message}</p>
         </div>
     )

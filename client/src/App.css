@@ -35,7 +35,7 @@ body {
     }
 
     50% {
-        background-color: #6ed3cf;
+        background-color: #7951a7;
     }
 
     100% {
@@ -108,11 +108,9 @@ body {
 
 .btn:hover {
 
-    box-shadow: 5px 5px 5px;
     animation-name: buttonAnimation;
-    animation-duration: 4s;
+    animation-duration: .5s;
     animation-iteration-count: infinite;
-    box-shadow: 0px 0px 11px -3px black;
 }
 
 .loginForm {
@@ -133,7 +131,7 @@ body {
     box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
     backdrop-filter: blur(13.9px);
     -webkit-backdrop-filter: blur(13.9px);
-    border: 1px solid rgba(255, 255, 255, 0.36);
+    border: 1px solid rgba(255, 255, 255, 0);
 }
 
 .userInput label {
@@ -141,11 +139,11 @@ body {
 }
 
 .userInput label input {
+    all: unset;
+    border-bottom: white solid;
+    padding: 0 0 3px 5px;
     margin: 10px 0 0 0;
     width: 95%;
-    background-color: rgba(0, 0, 0, 0.1);
-    border-radius: 5px;
-    padding-left: 10px;
 }
 
 .userInput label input:focus {
@@ -532,4 +530,12 @@ label {
 
 .numberOption * {
     margin: 0 10px;
+}
+
+.numberOption button {
+    width: 2rem;
+}
+
+.numberOption p {
+    width: 1rem;
 }

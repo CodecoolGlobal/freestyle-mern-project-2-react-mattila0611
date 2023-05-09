@@ -1,16 +1,18 @@
 import { Link } from "react-router-dom";
 import { getUser } from "../App";
 import { useState } from "react";
+import Alert from "../components/alert/Alert";
 
 
 function Profile() {
     const [changeUsername, setChangeUsername] = useState(getUser().username);
     const [changePassword, setChangePassword] = useState("");
     const [changeConfirmPassword, setChangeConfirmPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState(null);
     const userRegisterDate = new Date(getUser().registeredAt);
 
     const submit = () => {
-        console.log(changeUsername, changePassword, changeConfirmPassword);
+        setErrorMessage(null);
         if (changeUsername.length >= 3 && changePassword.length >= 3 && changeConfirmPassword.length >= 3) {
             if (changePassword === changeConfirmPassword) {
                 fetch(`http://localhost:3000/user/${getUser().username}`, {
@@ -23,20 +25,28 @@ function Profile() {
                         password: changePassword,
                     })
                 })
-                window.alert("You successfully updated your profile!")
+                setErrorMessage({ message: "You successfully updated your profile!", type: "success" })
             } else {
-                window.alert("Passwords don't match!")
+                setErrorMessage({ message: "Passwords don't match!", type: "error" })
             }
         } else {
-            window.alert("Username and password must be minimum 3 characters long!")
+            setErrorMessage({ message: "Username and password must be at least 3 characters long!", type: "error" })
         }
     }
 
     return (
         <>
             <div className="menubg"></div>
+            {errorMessage && <Alert key={errorMessage.message} message={errorMessage.message} type={errorMessage.type} />}
             <div className="profileContainer">
                 <div className="profile">
+                    <p>Your details</p>
+                    <div className="userDetails">
+                        <p className="userDetail">First name: {getUser().name.first}</p>
+                        <p className="userDetail">Last name: {getUser().name.last}</p>
+                        <p className="userDetail">Email: {getUser().email}</p>
+                        <p className="userDetail">Registration date: {`${userRegisterDate.getFullYear()} ${userRegisterDate.getMonth()} ${userRegisterDate.getDate()}`}</p>
+                    </div>
                     <p>Change details</p>
                     <div className="changeDetails">
                         <label>Username:
@@ -50,16 +60,9 @@ function Profile() {
                         </label>
                         <button className="btn" onClick={submit}>Submit changes</button>
                     </div>
-                    <p>Your details</p>
-                    <div className="userDetails">
-                        <p className="userDetail">First name: {getUser().name.first}</p>
-                        <p className="userDetail">Last name: {getUser().name.last}</p>
-                        <p className="userDetail">Email: {getUser().email}</p>
-                        <p className="userDetail">Registration date: {`${userRegisterDate.getFullYear()} ${userRegisterDate.getMonth()} ${userRegisterDate.getDate()}`}</p>
-                    </div>
-                    {/* <Link to="/profile/games">
-                        <button>Review played games</button>
-                    </Link> */}
+                    <Link to="/profile/games">
+                        <button className="btn">Review played games</button>
+                    </Link>
                     <Link to="/">
                         <button className="btn">Back to menu</button>
                     </Link>

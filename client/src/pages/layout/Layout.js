@@ -17,7 +17,7 @@ function Layout() {
         if (!getUser()) {
             navigate("/login");
         } else setLoading(false);
-    }, [])
+    }, [navigate])
 
     if(getUser()){
         if (!loading) {

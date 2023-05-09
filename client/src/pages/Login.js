@@ -2,10 +2,12 @@ import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
 import { setUser } from "../App";
 import logo from "../images/logo.png"
+import Alert from "../components/alert/Alert";
 
 function Login() {
     const [username, setUsername] = useState("");
     const [password, setPassword] = useState("");
+    const [errorMessage, setErrorMessage] = useState(null);
 
     const navigate = useNavigate();
 
@@ -22,20 +24,21 @@ function Login() {
                 })
             });
             const data = await res.json();
-            if (data.success === true) {
+            if (data.success) {
                 setUser(data.user);
                 setTimeout(() => navigate("/"), 50);
-            } else window.alert(data);
+            } else setErrorMessage(data);
         }
     }
 
     const checkInputs = () => {
+        setErrorMessage(null);
         if (username.length < 3) {
-            window.alert("Username must be at least 3 characters long!");
+            setErrorMessage("Username must be at lest 3 charatcter long!");
             return false;
         }
         if (password.length < 3) {
-            window.alert("Password must be at least 3 characters long!");
+            setErrorMessage("Password must be at lest 3 charatcter long!");
             return false;
         }
         return true;
@@ -44,6 +47,7 @@ function Login() {
     return (
         <>
             <div className="menubg"></div>
+            {errorMessage && <Alert key={errorMessage} type="error" message={errorMessage} />}
             <div className="container">
                 <div className="login">
                     <img src={logo} alt=""></img>

@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import vagoAll from "../images/vago_all.png";
 import bubble from "../images/bubble_left.png";
 import vagoSmile from "../images/vago_smile.png";
+import Alert from "../components/alert/Alert";
 
 function Game() {
     const [questions, setQuestions] = useState(null);
@@ -17,6 +18,8 @@ function Game() {
     const [questionNumber, setQuestionNumber] = useState(5);
     const [category, setCategory] = useState("9");
     const [difficulty, setDiffculty] = useState(null);
+
+    const [errorMessage, setErrorMessage] = useState(null);
 
     const fetchQuestions = async () => {
         const res = await fetch(`https://opentdb.com/api.php?amount=${questionNumber}&difficulty=${difficulty}&category=${category}&type=multiple`);
@@ -61,6 +64,7 @@ function Game() {
         return (
             <>
                 <div className="menubg"></div>
+                {errorMessage && <Alert key={errorMessage.message} message={errorMessage.message} type={errorMessage.type} />}
                 <div className="container">
                     <div className="gameOptions">
                         <p className="title">Game options</p>
@@ -101,7 +105,14 @@ function Game() {
                                 <option value={27}>Animals</option>
                             </select>
                         </div>
-                        <button className="btn" onClick={() => { if (difficulty) { setShowOptions(false); fetchQuestions() } }}>Start game</button>
+                        <button className="btn" onClick={() => {
+                            if (difficulty) {
+                                setShowOptions(false);
+                                fetchQuestions();
+                            } else {
+                                setErrorMessage({ message: "Choose a difficulty first!", type: "error" })
+                            }
+                        }}>Start game</button>
                     </div>
                 </div>
             </>

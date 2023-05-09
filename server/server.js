@@ -1,3 +1,4 @@
+require("dotenv").config();
 const express = require('express');
 const mongoose = require('mongoose');
 
@@ -5,7 +6,14 @@ const User = require("./model/User");
 
 const app = express();
 
-mongoose.connect("mongodb+srv://butyok:butyok@cluster0.sp2t3v5.mongodb.net/quiz2");
+const {MONGO_URL} = process.env;
+
+mongoose.connect(MONGO_URL);
+
+if (!MONGO_URL) {
+    console.error("Missing MONGO_URL environment variable");
+    process.exit(1);
+  }
 
 app.use(function (req, res, next) {
     res.header("Access-Control-Allow-Origin", "*");

@@ -24,7 +24,6 @@ function Game() {
     const fetchQuestions = async () => {
         const res = await fetch(`https://opentdb.com/api.php?amount=${questionNumber}&difficulty=${difficulty}&category=${category}&type=multiple`);
         const data = await res.json();
-        console.log(data.results);
         setQuestions(data.results);
     }
 

@@ -23,6 +23,8 @@ function randomizeArray(array) {
 
 function Question(props) {
     const { question, handleAnswer } = props;
+    const rightAnswer = question.correct_answer;
+
     const [answers, setAnswers] = useState(null);
 
     const [answer1Color, setAnswer1Color] = useState("");
@@ -41,7 +43,7 @@ function Question(props) {
     }, [question])
 
     const checkAnswer = (answerNum, correct) => {
-        if(!answerSubmitted){
+        if (!answerSubmitted) {
             setAnswerSubmitted(true);
             let setAnswerColor;
             if (answerNum === 1) {
@@ -55,7 +57,21 @@ function Question(props) {
             }
             setAnswerColor("answerYellow");
             setTimeout(() => {
-                correct ? setAnswerColor("answerGreen") : setAnswerColor("answerRed");
+                if (correct) {
+                    setAnswerColor("answerGreen");
+                } else {
+                    setAnswerColor("answerRed");
+                    const rightIndex = answers.findIndex(answer => answer === rightAnswer) + 1;
+                    if (rightIndex === 1) {
+                        setAnswer1Color("answerGreen");
+                    } else if (rightIndex === 2) {
+                        setAnswer2Color("answerGreen");
+                    } else if (rightIndex === 3) {
+                        setAnswer3Color("answerGreen");
+                    } else if (rightIndex === 4) {
+                        setAnswer4Color("answerGreen");
+                    }
+                }
                 setTimeout(() => {
                     handleAnswer(correct);
                     setAnswerSubmitted(false);

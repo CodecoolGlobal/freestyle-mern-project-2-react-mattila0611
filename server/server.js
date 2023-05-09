@@ -102,9 +102,25 @@ app.get("/api/users", async (req,res) => {
     }
 })
 
+app.get("/api/spot/:id", async (req,res) => {
+    try {
+        const users = await User.find({});
+        const scores = users.map(user => {return {id: user._id, score: user.playedGames.reduce((total, obj) => total + obj.score, 0)}});
+        const userSpot = scores.findIndex(item => item.id.toString() === req.params.id);
+        res.json(userSpot + 1);
+    } catch(error) {
+        console.log(error);
+        res.sendStatus(500);
+    }
+})
+
 app.patch("/user/:username", (req,res) => {
     User.findOneAndUpdate({username: req.params.username}, {username: req.body.username, password: req.body.password}, {new: true})
     .then(result => res.status(200).json(result))
     .catch(error => console.error(error))
 })
-app.listen(3001)
+
+
+app.listen(3001, () => {
+    console.log("Listening on port 3001");
+})

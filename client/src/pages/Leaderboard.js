@@ -11,17 +11,20 @@ function Leaderboard() {
         return user.playedGames.reduce((total, obj) => total + obj.score, 0);
     }
 
-    const fetchUsers = async () => {
-        const response = await fetch("http://localhost:3001/api/users");
-        const data = await response.json();
-        data.sort((a,b) => sumScore(b) - sumScore(a));
-        setUsers(data);
-    }
-
     useEffect(() => {
+        const fetchUsers = async () => {
+            const response = await fetch("http://localhost:3001/api/users");
+            const data = await response.json();
+            data.sort((a,b) => sumScore(b) - sumScore(a));
+            setUsers(data);
+        }
         fetchUsers();
     }, [])
 
+    const getQuestionCount = (user) => {
+        const questions = user.playedGames.map(item => item.questions);
+        return questions.reduce((total, num) => total + num,0);
+    }
     return (
         <>
             <div className="gamebg"></div>
@@ -34,7 +37,7 @@ function Leaderboard() {
                                 <th></th>
                                 <th>Username</th>
                                 <th>Score</th>
-                                <th>Played games</th>
+                                <th>Answered questions</th>
                             </tr>
                         </thead>
                         <tbody>
@@ -43,7 +46,7 @@ function Leaderboard() {
                                     <td>{index + 1}</td>
                                     <td>{user.username}</td>
                                     <td>{sumScore(user)}</td>
-                                    <td>{user.playedGames.length}</td>
+                                    <td>{getQuestionCount(user)}</td>
                                 </tr>
                             ))}
                         </tbody>

@@ -2,10 +2,13 @@ import { useEffect, useState } from "react";
 import "./Question.css";
 
 function unescapeHTML(str) {
-    const textArea = document.createElement('textarea');
-    textArea.innerHTML = str;
-    return textArea.value;
-};
+    return str
+        .replace(/&amp;/g, "&")
+        .replace(/&lt;/g, "<")
+        .replace(/&gt;/g, ">")
+        .replace(/&quot;/g, "\"")
+        .replace(/&#039;/g, "'");
+}
 
 function randomizeArray(array) {
     let currentIndex = array.length, randomIndex;

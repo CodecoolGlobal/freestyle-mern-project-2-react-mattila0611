@@ -1,6 +1,7 @@
 import { useState } from "react";
-import { Link, useNavigate } from "react-router-dom";
+import { Link } from "react-router-dom";
 import logo from "../images/logo.png";
+import Alert from "../components/alert/Alert";
 
 function Register() {
     const [firstName, setFirstName] = useState("");
@@ -10,7 +11,7 @@ function Register() {
     const [password, setPassword] = useState("");
     const [confirmPassword, setConfirmPassword] = useState("");
 
-    const navigate = useNavigate();
+    const [errorMessage, setErrorMessage] = useState(null);
 
     const submitRegistration = async () => {
         if (checkDetails()) {
@@ -29,36 +30,36 @@ function Register() {
             })
             const data = await res.json()
             if (data === "username exists") {
-                window.alert("Username already exists!");
+                setErrorMessage({ message: "Username already exists!", type: "error" });
             } else if (data === "email exists") {
-                window.alert("Email already exists!");
-            } else if(data === "ok") {
-                window.alert("Successful registration! You can now sign in!");
-                navigate("/login");
+                setErrorMessage({ message: "Email already exists!", type: "error" });
+            } else if (data === "ok") {
+                setErrorMessage({ message: "Successful registration! You can now sign in!", type: "success" });
             }
         }
     }
 
     const checkDetails = () => {
+        setErrorMessage(null);
         if (firstName.length < 3) {
-            console.log(firstName.length);
-            window.alert("First name must be at least 3 characters long!");
+            setErrorMessage(null);
+            setErrorMessage({ message: "First name must be at least 3 characters long!", type: "error" });
             return false;
         }
         if (lastName.length < 3) {
-            window.alert("Last name must be at least 3 characters long!");
+            setErrorMessage({ message: "Last name must be at least 3 characters long!", type: "error" });
             return false;
         }
         if (username.length < 3) {
-            window.alert("Username must be at least 3 characters long!");
+            setErrorMessage({ message: "Username must be at least 3 characters long!", type: "error" });
             return false;
         }
         if (password.length < 3) {
-            window.alert("Password must be at least 3 characters long!");
+            setErrorMessage({message: "Password must be at least 3 characters long!", type: "error"});
             return false;
         }
         if (password !== confirmPassword) {
-            window.alert("Passwords don't match!");
+            setErrorMessage({message: "Passwords don't match!", type: "error"});
             return false;
         }
         return true;
@@ -67,6 +68,7 @@ function Register() {
     return (
         <>
             <div className="menubg"></div>
+            {errorMessage && <Alert key={errorMessage.message} message={errorMessage.message} type={errorMessage.type} />}
             <div className="registerContainer">
                 <div className="register">
                     <img src={logo} alt=""></img>

@@ -1,13 +1,21 @@
 import { getUser } from "../App";
 
+function calculatePercentage(answeredQuestions) {
+    const totalQuestions = answeredQuestions.length;
+    const totalScore = answeredQuestions.reduce((acc, curr) => acc + curr.score, 0);
+    return (totalScore / (totalQuestions * 10)) * 100;
+}
+
 function ReviewGames() {
+    const user = getUser();
+
     return (
         <>
             <div className="reviewGames">
                 <div className="stats">
-                    <p>Played games:</p>
-                    <p>All time points:</p>
-                    <p>Well answered percentage:</p>
+                    <p>Played games: {user.playedGames.length}</p>
+                    <p>All time points: {user.playedGames.reduce((total, obj) => total + obj.score, 0)}</p>
+                    <p>Well answered percentage: {calculatePercentage(user.playedGames)}%</p>
                     <p>Leaderboard spot:</p>
                 </div>
                 <div className="playedGames">

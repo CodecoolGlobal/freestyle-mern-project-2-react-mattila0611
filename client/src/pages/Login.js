@@ -1,6 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
 import { useState } from "react";
-import { setUser } from "../App";
 import logo from "../images/logo.png"
 import Alert from "../components/alert/Alert";
 
@@ -25,7 +24,7 @@ function Login() {
             });
             const data = await res.json();
             if (data.success) {
-                setUser(data.user);
+                sessionStorage.setItem("user", JSON.stringify(data.user));
                 setTimeout(() => navigate("/"), 50);
             } else setErrorMessage(data);
         }

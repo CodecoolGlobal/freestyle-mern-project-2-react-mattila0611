@@ -1,6 +1,5 @@
 import "./Layout.css";
 import logo from "../../images/logo.png";
-import { getUser, setUser } from "../../App";
 import { Outlet, useNavigate } from "react-router-dom";
 import { useEffect, useState } from "react";
 
@@ -14,7 +13,7 @@ function Layout() {
     const [loading, setLoading] = useState(true);
 
     useEffect(() => {
-        if (!getUser()) {
+        if (!sessionStorage.getItem("user")) {
             navigate("/login");
         } else setLoading(false);
     }, [navigate])
@@ -24,12 +23,12 @@ function Layout() {
             <>
                 <div className="header">
                     <div className="score">
-                        <p>Score: {sumScore(getUser())}</p>
+                        <p>Score: {sumScore(JSON.parse(sessionStorage.getItem("user")))}</p>
                     </div>
                     <div className="logo"><img src={logo} alt="" /></div>
                     <div className="userProfile">
-                        <p>Logged in as {getUser().username}</p>
-                        <button onClick={() => {navigate("/login"); setUser(null)}}>Log out</button>
+                        <p>Logged in as {JSON.parse(sessionStorage.getItem("user")).username}</p>
+                        <button onClick={() => {navigate("/login"); sessionStorage.removeItem("user");}}>Log out</button>
                     </div>
                 </div>
                 <Outlet />

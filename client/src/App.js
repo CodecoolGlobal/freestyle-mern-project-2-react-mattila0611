@@ -1,4 +1,3 @@
-import { useState } from 'react';
 import './App.css';
 
 import Layout from './pages/layout/Layout';
@@ -49,17 +48,8 @@ const router = createBrowserRouter([
     }
 ])
 
-export let getUser = null;
-export let setUser = null;
 export let refreshUser = null;
 function App() {
-    const [loggedInUser, setLoggedInUser] = useState(null);
-
-    getUser = () => {
-        return loggedInUser;
-    }
-
-    setUser = setLoggedInUser;
 
     refreshUser = async (username, password) => {
         const res = await fetch("http://127.0.0.1:3001/api/login", {
@@ -73,7 +63,7 @@ function App() {
             })
         })
         const data = await res.json();
-        setLoggedInUser(data.user);
+        sessionStorage.setItem("user", JSON.stringify(data.user));
     }
 
     return (

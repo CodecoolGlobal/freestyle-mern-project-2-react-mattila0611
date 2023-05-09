@@ -1,4 +1,3 @@
-import { getUser } from "../App";
 import vagoUr from "../images/vago.png";
 import bubble from "../images/bubble.png";
 import { useNavigate } from "react-router-dom";
@@ -11,7 +10,7 @@ function Home() {
             <div className="menubg"></div>
             <div className="Home">
                 <div className="menuContainer">
-                    <p>Welcome, {getUser().username}!</p>
+                    <p>Welcome, {JSON.parse(sessionStorage.getItem("user")).username}!</p>
                     <button onClick={() => navigate("/game")} className="btn">Let's begin, Vágó Úr!</button>
                     <button onClick={() => navigate("/leaderboard")} className="btn">View leaderboard</button>
                     <button onClick={() => navigate("/profile")} className="btn">Profile</button>

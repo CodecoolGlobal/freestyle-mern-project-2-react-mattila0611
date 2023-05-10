@@ -2,9 +2,9 @@ import { useEffect, useState } from "react";
 import { Link } from "react-router-dom";
 
 function calculatePercentage(answeredQuestions) {
-    const totalQuestions = answeredQuestions.length;
-    const totalScore = answeredQuestions.reduce((acc, curr) => acc + curr.score, 0);
-    const percentage = (totalScore / (totalQuestions * 10)) * 100;
+    const totalQuestions = answeredQuestions.reduce((total, num) => total + num.questions, 0);
+    const totalScore = answeredQuestions.reduce((total, num) => total + num.score, 0);
+    const percentage = Math.floor((totalScore / totalQuestions) * 100);
     return percentage ? percentage : 0;
 }
 

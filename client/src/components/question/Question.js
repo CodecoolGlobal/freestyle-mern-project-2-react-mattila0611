@@ -7,7 +7,9 @@ function unescapeHTML(str) {
         .replace(/&lt;/g, "<")
         .replace(/&gt;/g, ">")
         .replace(/&quot;/g, "\"")
-        .replace(/&#039;/g, "'");
+        .replace(/&#039;/g, "'")
+        .replace(/&quot;/g, '"')
+        .replace(/&shy;/g, "");
 }
 
 function randomizeArray(array) {
@@ -21,8 +23,7 @@ function randomizeArray(array) {
     return array;
 }
 
-function Question(props) {
-    const { question, handleAnswer } = props;
+function Question({ question, handleAnswer, fifty }) {
     const rightAnswer = question.correct_answer;
 
     const [answers, setAnswers] = useState(null);
@@ -32,15 +33,24 @@ function Question(props) {
     const [answer3Color, setAnswer3Color] = useState("");
     const [answer4Color, setAnswer4Color] = useState("");
 
+    const [fiftyEnabled, setFiftyEnabled] = useState(fifty);
+
     const [answerSubmitted, setAnswerSubmitted] = useState(false);
 
     useEffect(() => {
-        setAnswers(randomizeArray([question.correct_answer, ...question.incorrect_answers]));
+        const incorrectAnswers = question.incorrect_answers.map(item => { return { q: item, fifty: false, correct: false } });
+        incorrectAnswers[0].fifty = true;
+        incorrectAnswers[1].fifty = true;
+        setAnswers(randomizeArray([{ q: question.correct_answer, fifty: false, correct: true }, ...incorrectAnswers]));
         setAnswer1Color("");
         setAnswer2Color("");
         setAnswer3Color("");
         setAnswer4Color("");
     }, [question])
+
+    useEffect(() => {
+        setFiftyEnabled(fifty);
+    }, [fifty])
 
     const checkAnswer = (answerNum, correct) => {
         if (!answerSubmitted) {
@@ -61,7 +71,7 @@ function Question(props) {
                     setAnswerColor("answerGreen");
                 } else {
                     setAnswerColor("answerRed");
-                    const rightIndex = answers.findIndex(answer => answer === rightAnswer) + 1;
+                    const rightIndex = answers.findIndex(answer => answer.q === rightAnswer) + 1;
                     if (rightIndex === 1) {
                         setAnswer1Color("answerGreen");
                     } else if (rightIndex === 2) {
@@ -88,21 +98,21 @@ function Question(props) {
                         <p>{unescapeHTML(question.question)}</p>
                     </div>
                     <div className="answers">
-                        <div onClick={() => checkAnswer(1, answers[0] === question.correct_answer ? true : false)} className={"answerBox " + answer1Color}>
+                        <div onClick={() => checkAnswer(1, answers[0].q === question.correct_answer ? true : false)} className={"answerBox " + answer1Color} style={answers[0].fifty && fiftyEnabled ? { visibility: "hidden" } : {}}>
                             <p>A</p>
-                            <p>{unescapeHTML(answers[0])}</p>
+                            <p>{unescapeHTML(answers[0].q)}</p>
                         </div>
-                        <div onClick={() => checkAnswer(2, answers[1] === question.correct_answer ? true : false)} className={"answerBox " + answer2Color}>
+                        <div onClick={() => checkAnswer(2, answers[1].q === question.correct_answer ? true : false)} className={"answerBox " + answer2Color} style={answers[1].fifty && fiftyEnabled ? { visibility: "hidden" } : {}}>
                             <p>B</p>
-                            <p>{unescapeHTML(answers[1])}</p>
+                            <p>{unescapeHTML(answers[1].q)}</p>
                         </div>
-                        <div onClick={() => checkAnswer(3, answers[2] === question.correct_answer ? true : false)} className={"answerBox " + answer3Color}>
+                        <div onClick={() => checkAnswer(3, answers[2].q === question.correct_answer ? true : false)} className={"answerBox " + answer3Color} style={answers[2].fifty && fiftyEnabled ? { visibility: "hidden" } : {}}>
                             <p>C</p>
-                            <p>{unescapeHTML(answers[2])}</p>
+                            <p>{unescapeHTML(answers[2].q)}</p>
                         </div>
-                        <div onClick={() => checkAnswer(4, answers[3] === question.correct_answer ? true : false)} className={"answerBox " + answer4Color}>
+                        <div onClick={() => checkAnswer(4, answers[3].q === question.correct_answer ? true : false)} className={"answerBox " + answer4Color} style={answers[3].fifty && fiftyEnabled ? { visibility: "hidden" } : {}}>
                             <p>D</p>
-                            <p>{unescapeHTML(answers[3])}</p>
+                            <p>{unescapeHTML(answers[3].q)}</p>
                         </div>
                     </div>
                 </div>

@@ -1,5 +1,5 @@
 import { Link, useNavigate } from "react-router-dom";
-import { useState } from "react";
+import { useEffect, useState } from "react";
 import logo from "../images/logo.png"
 import Alert from "../components/alert/Alert";
 
@@ -9,6 +9,12 @@ function Login() {
     const [errorMessage, setErrorMessage] = useState(null);
 
     const navigate = useNavigate();
+
+    useEffect(() => {
+        if(sessionStorage.getItem("user")){
+            navigate("/");
+        }
+    },[])
 
     const submitLogin = async () => {
         if (checkInputs()) {

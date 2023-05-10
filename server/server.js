@@ -106,7 +106,7 @@ app.get("/api/users", async (req,res) => {
 app.get("/api/spot/:id", async (req,res) => {
     try {
         const users = await User.find({});
-        const scores = users.map(user => {return {id: user._id, score: user.playedGames.reduce((total, obj) => total + obj.score, 0)}});
+        const scores = users.map(user => {return {id: user._id, score: user.playedGames.reduce((total, obj) => total + obj.score, 0)}}).sort((a,b) => b.score - a.score);
         const userSpot = scores.findIndex(item => item.id.toString() === req.params.id);
         res.json(userSpot + 1);
     } catch(error) {

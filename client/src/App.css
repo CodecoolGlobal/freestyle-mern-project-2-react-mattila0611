@@ -606,3 +606,31 @@ label {
 .paginationButton{
     padding: 10px 20px;
 }
+
+.cheats {
+    position: absolute;
+    top: 20vh;
+    right: 5vw;
+    height: 20vh;;
+    width: 20vh;
+    display: flex;
+    flex-direction: column;
+    justify-content: center;
+    align-items: center;
+    background: rgba(0, 147, 222, 0.52);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.4px);
+    -webkit-backdrop-filter: blur(8.4px);
+    border: 1px solid rgba(0, 147, 222, 0.25);
+}
+
+.cheats img {
+    height: 5rem;
+}
+
+.cheats p {
+    color: white;
+    font-weight: bold;
+    margin: 5px 0;
+}

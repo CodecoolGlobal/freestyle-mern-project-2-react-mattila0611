@@ -1,12 +1,15 @@
 import "./Alert.css";
-import error from "../../images/error.png";
-import success from "../../images/success.png";
+import {BsFillExclamationTriangleFill,BsFillCheckCircleFill} from "react-icons/bs"
 
 function Alert({ message, type }) {
     return (
         <div className={type === "error" ? "alert error" : "alert success"}>
-            <img src={type === "error" ? error : success} alt=""/>
-            <p>{message}</p>
+            {type === "error" ? 
+            <p className="errorIcon"><BsFillExclamationTriangleFill /></p> 
+            : 
+            <p className="succesIcon"><BsFillCheckCircleFill /></p> 
+            }
+            <p className="alertText">{message}</p>
         </div>
     )
 }

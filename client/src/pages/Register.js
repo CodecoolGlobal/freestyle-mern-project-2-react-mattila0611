@@ -1,5 +1,5 @@
-import { useState } from "react";
-import { Link } from "react-router-dom";
+import { useState, useEffect } from "react";
+import { Link, useNavigate } from "react-router-dom";
 import logo from "../images/logo.png";
 import Alert from "../components/alert/Alert";
 
@@ -12,6 +12,14 @@ function Register() {
     const [confirmPassword, setConfirmPassword] = useState("");
 
     const [errorMessage, setErrorMessage] = useState(null);
+
+    const navigate = useNavigate();
+
+    useEffect(() => {
+        if(sessionStorage.getItem("user")){
+            navigate("/");
+        }
+    },[])
 
     const submitRegistration = async () => {
         if (checkDetails()) {

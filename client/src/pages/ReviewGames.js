@@ -4,7 +4,8 @@ import { Link } from "react-router-dom";
 function calculatePercentage(answeredQuestions) {
     const totalQuestions = answeredQuestions.length;
     const totalScore = answeredQuestions.reduce((acc, curr) => acc + curr.score, 0);
-    return (totalScore / (totalQuestions * 10)) * 100;
+    const percentage = (totalScore / (totalQuestions * 10)) * 100;
+    return percentage ? percentage : 0;
 }
 
 function ReviewGames() {

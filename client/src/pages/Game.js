@@ -6,6 +6,7 @@ import { Link } from "react-router-dom";
 import vagoAll from "../images/vago_all.png";
 import bubble from "../images/bubble_left.png";
 import vagoSmile from "../images/vago_smile.png";
+import fifty from "../images/5050.png";
 import Alert from "../components/alert/Alert";
 
 function Game() {
@@ -19,6 +20,9 @@ function Game() {
     const [category, setCategory] = useState("9");
     const [difficulty, setDiffculty] = useState(null);
 
+    const [availableFifty, setAvailableFifty] = useState(0);
+    const [fiftyEnabled, setFiftyEnabled] = useState(false);
+
     const [errorMessage, setErrorMessage] = useState(null);
 
     const fetchQuestions = async () => {
@@ -29,7 +33,14 @@ function Game() {
 
     const handleAnswer = (correctAnswer) => {
         correctAnswer ? setCorrectAnswers(correctAnswers + 1) : setIncorrectAnswers(incorrectAnswers + 1);
+        setFiftyEnabled(false);
         setRound(round + 1);
+    }
+
+    const startGame = () => {
+        setShowOptions(false);
+        fetchQuestions();
+        setAvailableFifty(questionNumber / 5);
     }
 
     const restartGame = () => {
@@ -104,14 +115,7 @@ function Game() {
                                 <option value={27}>Animals</option>
                             </select>
                         </div>
-                        <button className="btn" onClick={() => {
-                            if (difficulty) {
-                                setShowOptions(false);
-                                fetchQuestions();
-                            } else {
-                                setErrorMessage({ message: "Choose a difficulty first!", type: "error" })
-                            }
-                        }}>Start game</button>
+                        <button className="btn" onClick={() => difficulty ? startGame() : setErrorMessage({ message: "Choose a difficulty first!", type: "error" })}>Start game</button>
                     </div>
                 </div>
             </>
@@ -128,12 +132,17 @@ function Game() {
                     <img className="gameBubble" src={bubble} alt="" />
                     <div className="gamebg"></div>
                     <div className="game">
+                        <div className="cheats">
+                            <p>Available:</p>
+                            <p>{availableFifty}</p>
+                            <img onClick={() => {if(!fiftyEnabled){setFiftyEnabled(true); setAvailableFifty((prev) => prev-1)}}} src={fifty} alt="" />
+                        </div>
                         <div className="gameStats">
                             <p>Correct answers: {correctAnswers}</p>
                             <p>Incorrect answers: {incorrectAnswers}</p>
                             <p>Remaining questions: {questionNumber - round}</p>
                         </div>
-                        <Question question={questions[round]} handleAnswer={handleAnswer} />
+                        <Question question={questions[round]} handleAnswer={handleAnswer} fifty={fiftyEnabled} />
                     </div>
                 </>
             )

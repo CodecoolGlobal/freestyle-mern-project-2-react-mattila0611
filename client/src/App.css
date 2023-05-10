@@ -598,3 +598,11 @@ label {
     flex-direction: column;
     align-items: center;
 }
+
+.paginationButtonsDiv{
+    display: flex;
+    gap: 10px
+}
+.paginationButton{
+    padding: 10px 20px;
+}

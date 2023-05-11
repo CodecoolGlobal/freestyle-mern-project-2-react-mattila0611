@@ -46,6 +46,7 @@ function Game() {
         setCorrectAnswers(0);
         setIncorrectAnswers(0);
         setRound(0);
+        setShowOptions(true);
     }
 
     useEffect(() => {

@@ -17,7 +17,7 @@ function Game() {
     const [showOptions, setShowOptions] = useState(true);
     const [questionNumber, setQuestionNumber] = useState(5);
     const [category, setCategory] = useState("9");
-    const [difficulty, setDiffculty] = useState(null);
+    const [difficulty, setDifficulty] = useState("medium");
 
     const [availableFifty, setAvailableFifty] = useState(0);
     const [fiftyEnabled, setFiftyEnabled] = useState(false);
@@ -67,6 +67,10 @@ function Game() {
         }
     }, [round])
 
+    useEffect(() => {
+        console.log(difficulty);
+    },[difficulty])
+
     if (showOptions) {
         return (
             <>
@@ -86,15 +90,15 @@ function Game() {
                             <p>Difficulty:</p>
                             <div>
                                 <div className="radio">
-                                    <input type="radio" id="easy" name="difficulty" value={"easy"} onChange={(e) => setDiffculty(e.target.value)} />
+                                    <input type="radio" id="easy" name="difficulty" value={"easy"} onChange={(e) => setDifficulty(e.target.value)} />
                                     <label htmlFor="easy">Easy</label>
                                 </div>
                                 <div className="radio">
-                                    <input type="radio" id="medium" name="difficulty" value={"medium"} onChange={(e) => setDiffculty(e.target.value)} checked/>
+                                    <input type="radio" id="medium" name="difficulty" value={"medium"} onChange={(e) => setDifficulty(e.target.value)} checked={difficulty === "medium"}/>
                                     <label htmlFor="medium">Medium</label>
                                 </div>
                                 <div className="radio">
-                                    <input type="radio" id="hard" name="difficulty" value={"hard"} onChange={(e) => setDiffculty(e.target.value)} />
+                                    <input type="radio" id="hard" name="difficulty" value={"hard"} onChange={(e) => setDifficulty(e.target.value)} />
                                     <label htmlFor="hard">Hard</label>
                                 </div>
                             </div>

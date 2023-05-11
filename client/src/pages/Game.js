@@ -7,7 +7,6 @@ import vagoAll from "../images/vago_all.png";
 import bubble from "../images/bubble_left.png";
 import vagoSmile from "../images/vago_smile.png";
 import fifty from "../images/5050.png";
-import Alert from "../components/alert/Alert";
 
 function Game() {
     const [questions, setQuestions] = useState(null);
@@ -22,8 +21,6 @@ function Game() {
 
     const [availableFifty, setAvailableFifty] = useState(0);
     const [fiftyEnabled, setFiftyEnabled] = useState(false);
-
-    const [errorMessage, setErrorMessage] = useState(null);
 
     const fetchQuestions = async () => {
         const res = await fetch(`https://opentdb.com/api.php?amount=${questionNumber}&difficulty=${difficulty}&category=${category}&type=multiple`);
@@ -74,7 +71,6 @@ function Game() {
         return (
             <>
                 <div className="menubg"></div>
-                {errorMessage && <Alert key={errorMessage.message} message={errorMessage.message} type={errorMessage.type} />}
                 <div className="container">
                     <div className="gameOptions">
                         <p className="title">Game options</p>
@@ -94,7 +90,7 @@ function Game() {
                                     <label htmlFor="easy">Easy</label>
                                 </div>
                                 <div className="radio">
-                                    <input type="radio" id="medium" name="difficulty" value={"medium"} onChange={(e) => setDiffculty(e.target.value)} />
+                                    <input type="radio" id="medium" name="difficulty" value={"medium"} onChange={(e) => setDiffculty(e.target.value)} checked/>
                                     <label htmlFor="medium">Medium</label>
                                 </div>
                                 <div className="radio">
@@ -112,10 +108,10 @@ function Game() {
                                 <option value={18}>Computer science</option>
                                 <option value={21}>Sports</option>
                                 <option value={23}>History</option>
-                                <option value={27}>Animals</option>
+                                <option value={22}>Geography</option>
                             </select>
                         </div>
-                        <button className="btn" onClick={() => difficulty ? startGame() : setErrorMessage({ message: "Choose a difficulty first!", type: "error" })}>Start game</button>
+                        <button className="btn" onClick={startGame}>Start game</button>
                     </div>
                 </div>
             </>

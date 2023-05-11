@@ -318,7 +318,6 @@ body {
     top: 50%;
     transform: translateY(-45%);
     left: 15vw;
-    background-color: rgb(175, 198, 255);
     width: 20rem;
     border-radius: 30px;
     padding: 30px 10px;
@@ -326,10 +325,17 @@ body {
     flex-direction: column;
     justify-content: center;
     align-items: center;
+    background: rgba(0, 147, 222, 0.52);
+    border-radius: 16px;
+    box-shadow: 0 4px 30px rgba(0, 0, 0, 0.1);
+    backdrop-filter: blur(8.4px);
+    -webkit-backdrop-filter: blur(8.4px);
+    border: 1px solid rgba(0, 147, 222, 0.25);
 }
 
 .gameoverContainer p {
     margin: 10px 0;
+    color: white;
 }
 
 .gameoverContainer a {

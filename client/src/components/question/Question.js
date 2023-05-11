@@ -2,15 +2,46 @@ import { useEffect, useState } from "react";
 import "./Question.css";
 
 function unescapeHTML(str) {
-    return str
-        .replace(/&amp;/g, "&")
-        .replace(/&lt;/g, "<")
-        .replace(/&gt;/g, ">")
-        .replace(/&quot;/g, "\"")
-        .replace(/&#039;/g, "'")
-        .replace(/&quot;/g, '"')
-        .replace(/&shy;/g, "");
-}
+    const htmlEntities = {
+      '&amp;': '&',
+      '&lt;': '<',
+      '&gt;': '>',
+      '&quot;': '"',
+      '&#x27;': "'",
+      '&#x2F;': '/',
+      '&#x60;': '`',
+      '&#x21;': '!',
+      '&#x23;': '#',
+      '&#x24;': '$',
+      '&#x25;': '%',
+      '&#x5E;': '^',
+      '&#x26;': '&',
+      '&#x2A;': '*',
+      '&#x28;': '(',
+      '&#x29;': ')',
+      '&#x7C;': '|',
+      '&#x2B;': '+',
+      '&#x3D;': '=',
+      '&#x3F;': '?',
+      '&#x3B;': ';',
+      '&#x3A;': ':',
+      '&#x2C;': ',',
+      '&#x2E;': '.',
+      '&#x3C;': '<',
+      '&#x3E;': '>',
+      '&#x7B;': '{',
+      '&#x7D;': '}',
+      '&#x5B;': '[',
+      '&#x5D;': ']',
+      '&#x5C;': '\\',
+      '&#039;': `'`
+    };
+  
+    return str.replace(/&[#a-z0-9]+;/gi, function(match) {
+      return htmlEntities[match] || match;
+    });
+  }
+      
 
 function randomizeArray(array) {
     let currentIndex = array.length, randomIndex;
